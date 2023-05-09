@@ -31,7 +31,7 @@ async def query_bible(req: QueryBody):
     chapter = req.chapter
     verse = req.verse
     print(book, chapter, verse)
-    res = cursor.execute(f"select content from nt where book='{book}' {'and chapter=' + str(chapter) if chapter else ''} {'and verse=' + str(verse) if verse else ''} union select content from at where book='{book}' {'and chapter=' + str(chapter) if chapter else ''} {'and verse=' + str(verse) if verse else ''}")
+    res = cursor.execute(f"select content, chapter, verse from nt where book='{book}' {'and chapter=' + str(chapter) if chapter else ''} {'and verse=' + str(verse) if verse else ''} union select content, chapter, verse from at where book='{book}' {'and chapter=' + str(chapter) if chapter else ''} {'and verse=' + str(verse) if verse else ''} order by chapter, verse")
     content = res.fetchall()
     print(content)
     return content
