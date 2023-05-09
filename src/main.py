@@ -30,12 +30,15 @@ async def query_bible(req: QueryBody):
     book = req.book
     chapter = req.chapter
     verse = req.verse
-    print(book, chapter, verse)
     res = cursor.execute(f"select content, chapter, verse from nt where book='{book}' {'and chapter=' + str(chapter) if chapter else ''} {'and verse=' + str(verse) if verse else ''} union select content, chapter, verse from at where book='{book}' {'and chapter=' + str(chapter) if chapter else ''} {'and verse=' + str(verse) if verse else ''} order by chapter, verse")
     content = res.fetchall()
-    print(content)
     return content
 
+@app.get("/books")
+async def get_books():
+    res = cursor.execute(f"select distinct book from at union select distinct book from nt")
+    books = res.fetchall()
+    return books
 
 @app.get("/")
 async def read_root():
