@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from random import randint
+
 class QueryBody(BaseModel):
     book: str
     chapter: int|None = None

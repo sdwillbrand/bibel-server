@@ -1,7 +1,7 @@
 import json
 import sqlite3
 
-conn = sqlite3.connect("../data/bible.db")
+conn = sqlite3.connect("../../data/bible.db")
 conn.execute('pragma journal_mode=wal')
 cursor = conn.cursor()
 
